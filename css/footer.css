@@ -1,0 +1,186 @@
+/* =====================================================================
+   FOOTER TEMPLATE — footer.css
+   Rangka footer (layout dari Fixs.Arts Studio) yang berdiri sendiri.
+   - Tidak bergantung pada CSS website lain (semua variabel berawalan --ft-)
+   - Mobile-first: HP (default) -> Tablet (>=640px) -> Desktop (>=960px)
+   - Semua warna / ukuran bisa diubah lewat CSS variable atau footer-config.js
+   ===================================================================== */
+
+/* ---------- 1. DESIGN TOKENS (ubah di sini / lewat footer-config.js) ---------- */
+.site-footer{
+  /* warna */
+  --ft-bg:transparent;
+  --ft-text:#F4F4F6;
+  --ft-muted:#9B9BA5;
+  --ft-faint:#5E5E68;
+  --ft-border:#1D1D24;
+  --ft-accent:#6C7BFF;
+
+  /* tipografi */
+  --ft-font-body:inherit;
+  --ft-font-display:inherit;
+
+  /* ukuran & jarak */
+  --ft-max:1240px;
+  --ft-pad-x:28px;
+  --ft-pad-top:70px;
+  --ft-pad-bottom:32px;
+  --ft-gap:40px;
+  --ft-brand-weight:1.4fr;   /* lebar kolom brand relatif ke kolom link (desktop) */
+  --ft-cols:3;               /* jumlah kolom link (diisi otomatis oleh footer.js) */
+  --ft-logo-height:56px;     /* tinggi logo gambar */
+}
+
+/* varian tema terang: <footer data-footer-theme="light"> */
+.site-footer[data-footer-theme="light"]{
+  --ft-text:#16171B;
+  --ft-muted:#5C5F68;
+  --ft-faint:#8A8D96;
+  --ft-border:#E2E1E8;
+}
+
+/* ---------- 2. KERANGKA UTAMA ---------- */
+.site-footer{
+  background:var(--ft-bg);
+  color:var(--ft-text);
+  font-family:var(--ft-font-body);
+  border-top:1px solid var(--ft-border);
+  padding:var(--ft-pad-top) 0 var(--ft-pad-bottom);
+  margin-top:40px;
+  box-sizing:border-box;
+}
+.site-footer *,
+.site-footer *::before,
+.site-footer *::after{box-sizing:border-box;}
+
+.site-footer .ft-wrap{
+  max-width:var(--ft-max);
+  margin:0 auto;
+  padding:0 var(--ft-pad-x);
+}
+
+/* ---------- 3. GRID KOLOM ---------- */
+/* HP (default): satu kolom, ditumpuk ke bawah */
+.ft-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--ft-gap);
+}
+
+/* ---------- 4. BRAND ---------- */
+.ft-brand-link{
+  display:inline-block;
+  margin-bottom:14px;
+  color:var(--ft-text);
+  text-decoration:none;
+  font-family:var(--ft-font-display);
+  font-size:1.15rem;
+  font-weight:700;
+  letter-spacing:0.02em;
+}
+.ft-brand-link .ft-brand-accent{color:var(--ft-accent);}
+.ft-brand-link:has(.ft-brand-logo){line-height:0;}
+.ft-brand-logo{display:block;height:var(--ft-logo-height);width:auto;max-width:100%;object-fit:contain;}
+.ft-brand-text{
+  margin:0;
+  color:var(--ft-muted);
+  font-size:0.9rem;
+  line-height:1.6;
+  max-width:40ch;
+}
+
+/* ---------- 5. KOLOM LINK ---------- */
+.ft-col-title{
+  margin:0 0 16px;
+  font-family:var(--ft-font-display);
+  font-size:0.85rem;
+  font-weight:600;
+  color:var(--ft-faint);
+}
+.ft-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.ft-list li{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.9rem;
+  color:var(--ft-muted);
+  line-height:1.5;
+}
+.ft-list a{
+  color:var(--ft-muted);
+  text-decoration:none;
+  transition:color .18s ease;
+}
+.ft-list a:hover,
+.ft-list a:focus-visible{color:var(--ft-text);}
+.ft-icon{display:inline-flex;align-items:center;flex-shrink:0;}
+.ft-icon img{width:16px;height:16px;object-fit:contain;display:block;}
+
+/* ---------- 6. BAR BAWAH (copyright) ---------- */
+.ft-bottom{
+  margin-top:56px;
+  padding-top:24px;
+  border-top:1px solid var(--ft-border);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  color:var(--ft-faint);
+  font-size:0.82rem;
+}
+
+/* ---------- 7. FOCUS (aksesibilitas) ---------- */
+.site-footer a:focus-visible{
+  outline:2px solid var(--ft-accent);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+
+/* ---------- TABLET (>= 640px) ----------
+   Brand memanjang penuh di atas, kolom link dibagi 2 / 3 di bawahnya. */
+@media (min-width:640px){
+  .ft-grid{grid-template-columns:repeat(2,1fr);}
+  .ft-brand{grid-column:1 / -1;}
+}
+
+/* ---------- DESKTOP / WEB (>= 960px) ----------
+   Satu baris: brand (lebih lebar) + N kolom link. */
+@media (min-width:960px){
+  .ft-grid{grid-template-columns:var(--ft-brand-weight) repeat(var(--ft-cols),1fr);}
+  .ft-brand{grid-column:auto;}
+  .ft-bottom{flex-wrap:nowrap;}
+  /* kalau brand disembunyikan, kolom link saja yang dibagi rata */
+  .site-footer[data-hide-brand="true"] .ft-grid{grid-template-columns:repeat(var(--ft-cols),1fr);}
+}
+
+/* ---------- HP (< 640px) ---------- */
+@media (max-width:639px){
+  .site-footer{--ft-pad-top:52px;--ft-pad-x:22px;--ft-gap:32px;}
+  .ft-bottom{margin-top:44px;flex-direction:column;}
+
+  /* opsi: 2 kolom link di HP  ->  <footer data-mobile-columns="2"> */
+  .site-footer[data-mobile-columns="2"] .ft-grid{grid-template-columns:repeat(2,1fr);gap:32px 20px;}
+  .site-footer[data-mobile-columns="2"] .ft-brand{grid-column:1 / -1;}
+
+  /* opsi: rata tengah di HP  ->  <footer data-mobile-align="center"> */
+  .site-footer[data-mobile-align="center"]{text-align:center;}
+  .site-footer[data-mobile-align="center"] .ft-brand-text{margin-left:auto;margin-right:auto;}
+  .site-footer[data-mobile-align="center"] .ft-brand-logo{margin-left:auto;margin-right:auto;}
+  .site-footer[data-mobile-align="center"] .ft-list li{justify-content:center;}
+  .site-footer[data-mobile-align="center"] .ft-bottom{align-items:center;text-align:center;}
+}
+
+/* ---------- opsi: sembunyikan bagian tertentu ---------- */
+.site-footer[data-hide-brand="true"] .ft-brand{display:none;}
+.site-footer[data-hide-bottom="true"] .ft-bottom{display:none;}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footer Template — Preview &amp; Setting</title>
+<style>
+  :root{
+    --bg:#101015; --panel:#17171E; --border:#26262E; --text:#F4F4F6; --muted:#9B9BA5; --accent:#6C7BFF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.5;}
+  .layout{display:grid;grid-template-columns:300px 1fr;min-height:100vh;}
+  aside{background:var(--panel);border-right:1px solid var(--border);padding:24px 20px;position:sticky;top:0;height:100vh;overflow-y:auto;}
+  aside h1{font-size:1.05rem;margin:0 0 4px;}
+  aside p.sub{color:var(--muted);font-size:0.8rem;margin:0 0 22px;}
+  .group{margin-bottom:22px;}
+  .group h2{font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:600;}
+  .seg{display:flex;gap:6px;}
+  .seg button{
+    flex:1;padding:9px 6px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--muted);
+    font-size:0.82rem;cursor:pointer;transition:all .15s ease;
+  }
+  .seg button:hover{color:var(--text);}
+  .seg button.active{border-color:var(--accent);color:var(--text);background:rgba(108,123,255,0.1);}
+  label.row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:0.85rem;padding:7px 0;}
+  select{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.82rem;}
+  input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent);}
+  .copy-btn{
+    width:100%;padding:11px;border-radius:10px;border:none;background:linear-gradient(120deg,#4E7CFF,#8B5CF6);
+    color:#fff;font-weight:600;font-size:0.85rem;cursor:pointer;
+  }
+  pre{
+    background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:0.72rem;
+    color:#c9ccd6;overflow:auto;margin:12px 0 0;max-height:210px;white-space:pre-wrap;
+  }
+  main{padding:28px;display:flex;flex-direction:column;align-items:center;}
+  .stage{width:100%;display:flex;justify-content:center;}
+  .device{
+    width:100%;max-width:100%;height:calc(100vh - 100px);min-height:520px;
+    border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#000;
+    box-sizing:content-box;
+  }
+  .device.phone{border-radius:34px;border-width:8px;border-color:#2a2a33;}
+  .device iframe{border:0;display:block;background:#0A0A0D;transform-origin:0 0;}
+  .caption{color:var(--muted);font-size:0.8rem;margin-top:14px;}
+  @media (max-width:860px){
+    .layout{grid-template-columns:1fr;}
+    aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border);}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <aside>
+    <h1>Footer Template</h1>
+    <p class="sub">Coba tampilan &amp; setting, lalu salin ke <code>footer-config.js</code>.</p>
+
+    <div class="group">
+      <h2>Perangkat</h2>
+      <div class="seg" id="deviceSeg">
+        <button data-device="desktop" class="active">Web</button>
+        <button data-device="tablet">Tablet</button>
+        <button data-device="phone">HP</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>Tema</h2>
+      <label class="row">Mode warna
+        <select id="optTheme"><option value="dark">Gelap</option><option value="light">Terang</option></select>
+      </label>
+    </div>
+
+    <div class="group">
+      <h2>Tampilan di HP</h2>
+      <label class="row">Kolom link
+        <select id="optMobileColumns"><option value="1">1 kolom</option><option value="2">2 kolom</option></select>
+      </label>
+      <label class="row">Rata teks
+        <select id="optMobileAlign"><option value="left">Kiri</option><option value="center">Tengah</option></select>
+      </label>
+    </div>
+
+    <div class="group">
+      <h2>Tampilan di Web</h2>
+      <label class="row">Lebar kolom brand
+        <select id="optBrandWeight"><option value="1fr">Sama (1fr)</option><option value="1.4fr" selected>Sedikit lebar (1.4fr)</option><option value="2fr">Lebar (2fr)</option></select>
+      </label>
+    </div>
+
+    <div class="group">
+      <h2>Bagian</h2>
+      <label class="row">Tampilkan brand <input type="checkbox" id="optShowBrand" checked></label>
+      <label class="row">Tampilkan bar copyright <input type="checkbox" id="optShowBottom" checked></label>
+    </div>
+
+    <div class="group">
+      <button class="copy-btn" id="copyBtn">Salin pengaturan</button>
+      <pre id="snippet"></pre>
+    </div>
+  </aside>
+
+  <main>
+    <div class="stage">
+      <div class="device" id="device">
+        <iframe id="frame" src="index.html" title="Preview footer"></iframe>
+      </div>
+    </div>
+    <p class="caption" id="caption">Mode Web — lebar penuh</p>
+  </main>
+
+</div>
+
+<script>
+  var frame = document.getElementById("frame");
+  var device = document.getElementById("device");
+  var caption = document.getElementById("caption");
+
+  var captions = {
+    desktop: "Mode Web — 1280px (brand + kolom link sejajar, ≥ 960px)",
+    tablet:  "Mode Tablet — 768px (brand di atas, kolom link 2 baris, ≥ 640px)",
+    phone:   "Mode HP — 390px (ditumpuk ke bawah, < 640px)"
+  };
+
+  function readSettings(){
+    return {
+      layout: {
+        mobileColumns: Number(document.getElementById("optMobileColumns").value),
+        mobileAlign: document.getElementById("optMobileAlign").value,
+        brandWeight: document.getElementById("optBrandWeight").value,
+        showBrand: document.getElementById("optShowBrand").checked,
+        showBottomBar: document.getElementById("optShowBottom").checked
+      },
+      theme: { mode: document.getElementById("optTheme").value }
+    };
+  }
+
+  function push(){
+    var cfg = readSettings();
+    document.getElementById("snippet").textContent =
+      "layout: " + JSON.stringify(cfg.layout, null, 2) + ",\n\ntheme: { mode: \"" + cfg.theme.mode + "\" }";
+    frame.contentWindow.postMessage({ type: "footer-update", config: cfg, pageLight: cfg.theme.mode === "light" }, "*");
+  }
+
+  var currentDevice = "desktop";
+  var WIDTHS = { desktop: 1280, tablet: 768, phone: 390 };
+
+  // Ukuran viewport di dalam iframe HARUS akurat supaya breakpoint CSS-nya benar:
+  //  - Web   : 1280px (diperkecil dengan scale bila layar tidak muat)
+  //  - Tablet: 768px, HP: 390px
+  function layoutDevice(){
+    var stage = document.querySelector(".stage");
+    var available = stage.clientWidth;
+    var borderX = currentDevice === "phone" ? 16 : 2;
+    var viewportW = WIDTHS[currentDevice];
+    var scale = Math.min(1, (available - borderX) / viewportW);
+    var viewportH = Math.max(520, window.innerHeight - 100);
+
+    device.className = "device" + (currentDevice === "desktop" ? "" : " " + currentDevice);
+    device.style.width = Math.round(viewportW * scale) + "px";
+    device.style.height = viewportH + "px";
+    frame.style.width = viewportW + "px";
+    frame.style.height = Math.round(viewportH / scale) + "px";
+    frame.style.transform = "scale(" + scale + ")";
+
+    var note = scale < 1 ? " (ditampilkan " + Math.round(scale * 100) + "% agar muat di layar)" : "";
+    caption.textContent = captions[currentDevice] + note;
+  }
+
+  document.querySelectorAll("#deviceSeg button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll("#deviceSeg button").forEach(function (b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      currentDevice = btn.dataset.device;
+      layoutDevice();
+    });
+  });
+  window.addEventListener("resize", layoutDevice);
+
+  ["optTheme","optMobileColumns","optMobileAlign","optBrandWeight","optShowBrand","optShowBottom"].forEach(function (id) {
+    document.getElementById(id).addEventListener("change", push);
+  });
+
+  frame.addEventListener("load", push);
+
+  document.getElementById("copyBtn").addEventListener("click", function () {
+    var text = document.getElementById("snippet").textContent;
+    var btn = this;
+    function done(){ btn.textContent = "Tersalin ✓"; setTimeout(function(){ btn.textContent = "Salin pengaturan"; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done);
+    else { var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); done(); }
+  });
+
+  layoutDevice();
+</script>
+</body>
+</html>

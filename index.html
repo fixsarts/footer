@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footer Template — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- 1) CSS footer (satu-satunya file CSS yang dibutuhkan footer) -->
+<link rel="stylesheet" href="css/footer.css">
+
+<!-- CSS di bawah ini HANYA untuk halaman demo, bukan bagian dari template -->
+<style>
+  :root{ --demo-bg:#0A0A0D; --demo-text:#F4F4F6; }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; display:flex; flex-direction:column;
+    background:var(--demo-bg); color:var(--demo-text);
+    font-family:'Inter',sans-serif; line-height:1.6;
+  }
+  body.light{ --demo-bg:#FAFAFB; --demo-text:#16171B; }
+  main{ flex:1; max-width:1240px; width:100%; margin:0 auto; padding:80px 28px; }
+  main h1{ font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(1.8rem,5vw,3rem); margin:0 0 14px; }
+  main p{ color:#9B9BA5; max-width:56ch; margin:0; }
+  /* footer memakai font yang sama dengan halaman */
+  .site-footer{ --ft-font-body:'Inter',sans-serif; --ft-font-display:'Plus Jakarta Sans',sans-serif; }
+  body.light .site-footer{ --ft-bg:#FFFFFF; }
+</style>
+</head>
+<body>
+
+<main>
+  <h1>Halaman demo footer</h1>
+  <p>Ini isi halaman website kamu. Scroll ke bawah untuk melihat footer. Buka <b>preview.html</b> untuk mencoba tampilan Desktop / Tablet / HP sekaligus mengubah pengaturannya.</p>
+</main>
+
+<!-- 2) Titik pemasangan footer: cukup satu baris ini -->
+<footer data-site-footer></footer>
+
+<!-- 3) Setting + renderer footer -->
+<script src="js/footer-config.js"></script>
+<script src="js/footer.js"></script>
+
+<!-- Khusus demo: menerima perubahan setting dari preview.html (postMessage) -->
+<script>
+  window.addEventListener("message", function (event) {
+    if (event.source !== window.parent) return;
+    var msg = event.data || {};
+    if (msg.type !== "footer-update") return;
+    document.body.classList.toggle("light", !!msg.pageLight);
+    Footer.update(msg.config || {});
+  });
+</script>
+</body>
+</html>
