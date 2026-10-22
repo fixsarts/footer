@@ -22,6 +22,36 @@ footer-template/
 Untuk dipakai di website lain, cukup bawa: **`css/footer.css`**, **`js/footer-config.js`**, **`js/footer.js`**, dan logo kamu di **`assets/logo.png`**.
 
 ---
+## Cara Simple (3 langkah)
+
+**1. tambahkan file ini setelah <head>`:
+
+```
+<head>
+
+  <link rel="stylesheet"
+    href="https://fixsarts.github.io/footer/css/footer.css">
+  <style>
+  footer[data-site-footer] {
+    --ft-bg: #0A0A0D;
+  }
+</style>
+
+```
+
+**2. pasang di setelah </script> _dibagian sini_ </body> :
+
+```
+<!-- Footer -->
+<footer data-site-footer></footer>
+
+<script src="https://fixsarts.github.io/footer/js/footer-config.js"></script>
+<script src="https://fixsarts.github.io/footer/js/footer.js"></script>
+
+</body>
+```
+
+---
 
 ## Cara pakai di website baru (3 langkah)
 
