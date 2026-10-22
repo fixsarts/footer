@@ -22,9 +22,9 @@ footer-template/
 Untuk dipakai di website lain, cukup bawa: **`css/footer.css`**, **`js/footer-config.js`**, **`js/footer.js`**, dan logo kamu di **`assets/logo.png`**.
 
 ---
-## Cara Simple (3 langkah)
+## Cara Simple
 
-**1. tambahkan file ini setelah <head>`:
+**1. tambahkan file ini setelah `<head>`:
 
 ```
 <head>
@@ -39,7 +39,7 @@ Untuk dipakai di website lain, cukup bawa: **`css/footer.css`**, **`js/footer-co
 
 ```
 
-**2. pasang di setelah </script> _dibagian sini_ </body> :
+**2. pasang di setelah `</script>` _dibagian sini_ `</body>` :
 
 ```
 <!-- Footer -->
