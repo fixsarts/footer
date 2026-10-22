@@ -19,7 +19,7 @@ window.FooterConfig = {
     // Path/URL gambar logo (PNG transparan disarankan).
     // Kosongkan ("") untuk memakai tulisan (textMain + textAccent).
     // Kalau file logo tidak ditemukan, footer otomatis kembali ke tulisan.
-    logoUrl: "assets/fixs arts (white).png",
+    logoUrl: "https://fixsarts.github.io/footer/assets/Fixs%20Arts%20(White).png",
     logoHeight: "50px",         // tinggi logo (lebar mengikuti proporsi)
     textMain: "FIXS",           // dipakai bila logoUrl kosong / gambar gagal dimuat
     textAccent: ".ARTS",        // bagian yang diberi warna aksen
