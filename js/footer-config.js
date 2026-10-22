@@ -20,7 +20,6 @@ window.FooterConfig = {
     // Kosongkan ("") untuk memakai tulisan (textMain + textAccent).
     // Kalau file logo tidak ditemukan, footer otomatis kembali ke tulisan.
     // Cara Menonaktifkan codin, tambahkan simbol di awal //
-    //logoUrl: "https://fixsarts.github.io/footer/assets/Fixs%20Arts%20(White).png",
     logoUrl: "https://fixsarts.github.io/footer/assets/Icon%20Fixs%20Arts.gif",
     logoHeight: "50px",         // tinggi logo (lebar mengikuti proporsi)
     textMain: "FIXS",           // dipakai bila logoUrl kosong / gambar gagal dimuat
