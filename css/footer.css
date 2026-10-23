@@ -1,24 +1,40 @@
 /* =====================================================================
    FOOTER TEMPLATE — footer.css
-   Rangka footer (layout dari Fixs.Arts Studio) yang berdiri sendiri.
-   - Tidak bergantung pada CSS website lain (semua variabel berawalan --ft-)
+   Footer yang BERDIRI SENDIRI: tidak butuh CSS tambahan dari website lain.
+   - Font Inter dimuat sendiri (baris @import di bawah).
+   - Background, warna teks, dan warna ikon sudah punya nilai bawaan.
+   - Semua variabel berawalan --ft- agar tidak bentrok dengan CSS website.
    - Mobile-first: HP (default) -> Tablet (>=640px) -> Desktop (>=960px)
-   - Semua warna / ukuran bisa diubah lewat CSS variable atau footer-config.js
+
+   DAFTAR ISI
+     1. Font
+     2. Variabel (warna, font, ukuran)
+     3. Kerangka & reset
+     4. Grid kolom
+     5. Brand
+     6. Kolom link & ikon
+     7. Bar bawah & menu bahasa
+     8. Fokus keyboard
+     9. Responsive
+    10. Opsi tampil/sembunyi
    ===================================================================== */
 
-/* ---------- 1. DESIGN TOKENS (ubah di sini / lewat footer-config.js) ---------- */
+/* ---------- 1. FONT ---------- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* ---------- 2. VARIABEL ---------- */
 .site-footer{
-  /* warna */
-  --ft-bg:transparent;
+  /* warna (tema gelap = bawaan) */
+  --ft-bg:#0A0A0D;
   --ft-text:#F4F4F6;
   --ft-muted:#9B9BA5;
   --ft-faint:#5E5E68;
   --ft-border:#1D1D24;
   --ft-accent:#6C7BFF;
 
-  /* tipografi */
-  --ft-font-body:inherit;
-  --ft-font-display:inherit;
+  /* font — ganti di sini kalau mau font lain */
+  --ft-font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  --ft-font-display:var(--ft-font-body);
 
   /* ukuran & jarak */
   --ft-max:1240px;
@@ -26,32 +42,63 @@
   --ft-pad-top:70px;
   --ft-pad-bottom:32px;
   --ft-gap:40px;
+  --ft-margin-top:0px;
   --ft-brand-weight:1.4fr;   /* lebar kolom brand relatif ke kolom link (desktop) */
   --ft-cols:3;               /* jumlah kolom link (diisi otomatis oleh footer.js) */
   --ft-logo-height:56px;     /* tinggi logo gambar */
+  --ft-icon-size:20px;       /* ukuran ikon di kolom link */
+  --ft-icon-opacity:.85;     /* kepekatan ikon (hover = 1) */
 }
 
-/* varian tema terang: <footer data-footer-theme="light"> */
+/* tema terang: <footer data-footer-theme="light"> */
 .site-footer[data-footer-theme="light"]{
+  --ft-bg:#FFFFFF;
   --ft-text:#16171B;
   --ft-muted:#5C5F68;
   --ft-faint:#8A8D96;
   --ft-border:#E2E1E8;
 }
 
-/* ---------- 2. KERANGKA UTAMA ---------- */
-.site-footer{
-  background:var(--ft-bg);
-  color:var(--ft-text);
-  font-family:var(--ft-font-body);
-  border-top:1px solid var(--ft-border);
-  padding:var(--ft-pad-top) 0 var(--ft-pad-bottom);
-  margin-top:40px;
-  box-sizing:border-box;
-}
+/* warna ikon PNG (diatur otomatis oleh footer.js lewat atribut data-icon-tone)
+   white    = ikon jadi putih   (untuk latar gelap)
+   black    = ikon jadi hitam   (untuk latar terang)
+   original = warna asli file PNG */
+.site-footer[data-icon-tone="white"]{--ft-icon-filter:brightness(0) invert(1);}
+.site-footer[data-icon-tone="black"]{--ft-icon-filter:brightness(0);}
+.site-footer[data-icon-tone="original"]{--ft-icon-filter:none;}
+
+/* ---------- 3. KERANGKA & RESET ---------- */
+.site-footer,
 .site-footer *,
 .site-footer *::before,
 .site-footer *::after{box-sizing:border-box;}
+
+/* font dipaksa dari footer sendiri, bukan dari halaman induk */
+.site-footer,
+.site-footer *{
+  font-family:var(--ft-font-body);
+  letter-spacing:normal;
+  text-transform:none;
+}
+
+.site-footer{
+  display:block;
+  position:relative;
+  clear:both;
+  width:100%;
+  margin:var(--ft-margin-top) 0 0;
+  padding:var(--ft-pad-top) 0 var(--ft-pad-bottom);
+  background:var(--ft-bg);
+  color:var(--ft-text);
+  border-top:1px solid var(--ft-border);
+  font-size:16px;
+  font-weight:400;
+  line-height:1.5;
+  text-align:left;
+  -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
 
 .site-footer .ft-wrap{
   max-width:var(--ft-max);
@@ -59,7 +106,7 @@
   padding:0 var(--ft-pad-x);
 }
 
-/* ---------- 3. GRID KOLOM ---------- */
+/* ---------- 4. GRID KOLOM ---------- */
 /* HP (default): satu kolom, ditumpuk ke bawah */
 .ft-grid{
   display:grid;
@@ -67,7 +114,7 @@
   gap:var(--ft-gap);
 }
 
-/* ---------- 4. BRAND ---------- */
+/* ---------- 5. BRAND ---------- */
 .ft-brand-link{
   display:inline-block;
   margin-bottom:14px;
@@ -89,12 +136,14 @@
   max-width:40ch;
 }
 
-/* ---------- 5. KOLOM LINK ---------- */
+/* ---------- 6. KOLOM LINK & IKON ---------- */
 .ft-col-title{
   margin:0 0 16px;
+  padding:0;
   font-family:var(--ft-font-display);
   font-size:0.85rem;
   font-weight:600;
+  line-height:1.4;
   color:var(--ft-faint);
 }
 .ft-list{
@@ -108,7 +157,9 @@
 .ft-list li{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
+  margin:0;
+  padding:0;
   font-size:0.9rem;
   color:var(--ft-muted);
   line-height:1.5;
@@ -120,31 +171,100 @@
 }
 .ft-list a:hover,
 .ft-list a:focus-visible{color:var(--ft-text);}
-.ft-icon{display:inline-flex;align-items:center;flex-shrink:0;}
-.ft-icon img{width:16px;height:16px;object-fit:contain;display:block;}
 
-/* ---------- 6. BAR BAWAH (copyright) ---------- */
+.ft-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  width:var(--ft-icon-size);
+  height:var(--ft-icon-size);
+  font-size:calc(var(--ft-icon-size) * .8);   /* untuk ikon berupa emoji */
+  line-height:1;
+}
+.ft-icon img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:var(--ft-icon-filter,none);          /* putih / hitam otomatis */
+  opacity:var(--ft-icon-opacity);
+  transition:opacity .18s ease;
+}
+.ft-list li:hover .ft-icon img,
+.ft-list li:focus-within .ft-icon img{opacity:1;}
+
+/* ---------- 7. BAR BAWAH & MENU BAHASA ---------- */
 .ft-bottom{
   margin-top:56px;
   padding-top:24px;
   border-top:1px solid var(--ft-border);
   display:flex;
   justify-content:space-between;
+  align-items:center;
   flex-wrap:wrap;
-  gap:10px;
+  gap:14px;
   color:var(--ft-faint);
   font-size:0.82rem;
 }
+.ft-bottom-end{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-left:auto;
+}
 
-/* ---------- 7. FOCUS (aksesibilitas) ---------- */
-.site-footer a:focus-visible{
+.ft-lang{display:inline-flex;align-items:center;margin:0;}
+.ft-lang-select{
+  -webkit-appearance:none;
+  appearance:none;
+  margin:0;
+  padding:8px 34px 8px 12px;
+  min-width:150px;
+  background-color:transparent;
+  color:var(--ft-muted);
+  border:1px solid var(--ft-border);
+  border-radius:8px;
+  font-size:0.82rem;
+  font-weight:500;
+  line-height:1.2;
+  cursor:pointer;
+  transition:color .18s ease,border-color .18s ease;
+  /* panah dropdown (mengikuti warna teks) */
+  background-image:
+    linear-gradient(45deg,transparent 50%,currentColor 50%),
+    linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 17px) 52%,calc(100% - 12px) 52%;
+  background-size:5px 5px,5px 5px;
+  background-repeat:no-repeat;
+}
+.ft-lang-select:hover{color:var(--ft-text);border-color:var(--ft-faint);}
+.site-footer[data-footer-theme="dark"] .ft-lang-select{color-scheme:dark;}
+.site-footer[data-footer-theme="light"] .ft-lang-select{color-scheme:light;}
+
+/* teks untuk pembaca layar saja */
+.ft-sr-only{
+  position:absolute;
+  width:1px;height:1px;
+  margin:-1px;padding:0;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+/* ---------- 8. FOKUS KEYBOARD (aksesibilitas) ---------- */
+.site-footer a:focus-visible,
+.site-footer select:focus-visible{
   outline:2px solid var(--ft-accent);
   outline-offset:3px;
   border-radius:4px;
 }
+.site-footer select:focus-visible{border-radius:8px;}
 
 /* =====================================================================
-   RESPONSIVE
+   9. RESPONSIVE
    ===================================================================== */
 
 /* ---------- TABLET (>= 640px) ----------
@@ -167,7 +287,8 @@
 /* ---------- HP (< 640px) ---------- */
 @media (max-width:639px){
   .site-footer{--ft-pad-top:52px;--ft-pad-x:22px;--ft-gap:32px;}
-  .ft-bottom{margin-top:44px;flex-direction:column;}
+  .ft-bottom{margin-top:44px;flex-direction:column;align-items:flex-start;}
+  .ft-bottom-end{margin-left:0;}
 
   /* opsi: 2 kolom link di HP  ->  <footer data-mobile-columns="2"> */
   .site-footer[data-mobile-columns="2"] .ft-grid{grid-template-columns:repeat(2,1fr);gap:32px 20px;}
@@ -179,8 +300,9 @@
   .site-footer[data-mobile-align="center"] .ft-brand-logo{margin-left:auto;margin-right:auto;}
   .site-footer[data-mobile-align="center"] .ft-list li{justify-content:center;}
   .site-footer[data-mobile-align="center"] .ft-bottom{align-items:center;text-align:center;}
+  .site-footer[data-mobile-align="center"] .ft-bottom-end{justify-content:center;}
 }
 
-/* ---------- opsi: sembunyikan bagian tertentu ---------- */
+/* ---------- 10. OPSI TAMPIL / SEMBUNYI ---------- */
 .site-footer[data-hide-brand="true"] .ft-brand{display:none;}
 .site-footer[data-hide-bottom="true"] .ft-bottom{display:none;}

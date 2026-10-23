@@ -8,8 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<!-- 1) CSS footer (satu-satunya file CSS yang dibutuhkan footer) -->
-<link rel="stylesheet" href="css/footer.css">
+<!-- Footer TIDAK butuh CSS tambahan: footer.js memuat css/footer.css (dan font Inter) sendiri. -->
 
 <!-- CSS di bawah ini HANYA untuk halaman demo, bukan bagian dari template -->
 <style>
@@ -24,9 +23,6 @@
   main{ flex:1; max-width:1240px; width:100%; margin:0 auto; padding:80px 28px; }
   main h1{ font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(1.8rem,5vw,3rem); margin:0 0 14px; }
   main p{ color:#9B9BA5; max-width:56ch; margin:0; }
-  /* footer memakai font yang sama dengan halaman */
-  .site-footer{ --ft-font-body:'Inter',sans-serif; --ft-font-display:'Plus Jakarta Sans',sans-serif; }
-  body.light .site-footer{ --ft-bg:#FFFFFF; }
 </style>
 </head>
 <body>

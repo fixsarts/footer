@@ -4,25 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Footer Template — Versi HTML Statis (tanpa JavaScript)</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Satu-satunya file yang dibutuhkan footer. Font Inter sudah dimuat dari dalam footer.css -->
 <link rel="stylesheet" href="css/footer.css">
+
 <style>
-  body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:#0A0A0D;color:#F4F4F6;font-family:'Inter',sans-serif;}
+  /* CSS di bawah ini HANYA untuk halaman demo, bukan bagian dari footer */
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:#0A0A0D;color:#F4F4F6;font-family:system-ui,sans-serif;}
   main{flex:1;padding:80px 28px;max-width:1240px;width:100%;margin:0 auto;box-sizing:border-box;}
-  .site-footer{--ft-font-body:'Inter',sans-serif;--ft-font-display:'Plus Jakarta Sans',sans-serif;}
 </style>
 </head>
 <body>
 
 <main>
   <h2>Versi HTML statis</h2>
-  <p style="color:#9B9BA5;">Pakai file ini kalau kamu tidak mau memakai JavaScript sama sekali. Salin blok &lt;footer&gt; di bawah ke halaman mana pun, lalu edit teks / link-nya langsung.</p>
+  <p style="color:#9B9BA5;">Pakai file ini kalau kamu tidak mau memakai JavaScript sama sekali. Salin blok &lt;footer&gt; di bawah ke halaman mana pun, lalu edit teks / link-nya langsung. Catatan: dropdown bahasa dan warna ikon otomatis hanya ada di versi JavaScript.</p>
 </main>
 
 <!-- =====================================================================
-     RANGKA FOOTER (statis).  Hasilnya identik dengan versi JavaScript.
+     RANGKA FOOTER (statis).  Tampilannya sama dengan versi JavaScript.
      Atur tampilan lewat atribut data-* pada <footer>:
-       data-footer-theme="dark | light"
+       data-footer-theme="dark | light"        (dark = latar hitam, light = latar putih)
+       data-icon-tone="white | black | original"
+            white  = ikon putih  (pakai di latar gelap)
+            black  = ikon hitam  (pakai di latar terang)
        data-mobile-columns="1 | 2"
        data-mobile-align="left | center"
        data-hide-brand="true"   data-hide-bottom="true"
@@ -30,6 +35,7 @@
      ===================================================================== -->
 <footer class="site-footer"
         data-footer-theme="dark"
+        data-icon-tone="white"
         data-mobile-columns="1"
         data-mobile-align="left"
         style="--ft-cols:3;">
@@ -39,38 +45,47 @@
 
       <!-- KOLOM BRAND -->
       <div class="ft-brand">
-        <a class="ft-brand-link" href="index.html"><img class="ft-brand-logo" src="assets/logo.png" alt="Fixs.Arts Studio"></a>
+        <a class="ft-brand-link" href="index.html"><img class="ft-brand-logo" src="assets/Fixs%20Arts%20(White).png" alt="Fixs.Arts Studio" style="--ft-logo-height:50px"></a>
         <!-- pakai tulisan saja:  <a class="ft-brand-link" href="index.html">FIXS<span class="ft-brand-accent">.ARTS</span></a> -->
         <p class="ft-brand-text">Studio desain kreatif untuk brand yang ingin tampil beda — dari identitas visual sampai materi promosi.</p>
       </div>
 
-      <!-- KOLOM LINK -->
+      <!-- KOLOM JELAJAHI -->
       <nav class="ft-col" aria-label="Jelajahi">
         <h4 class="ft-col-title">Jelajahi</h4>
         <ul class="ft-list">
           <li><a href="services.html">Layanan</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="https://www.behance.net/fixsarts" target="_blank" rel="noopener noreferrer">Portofolio</a></li>
           <li><a href="about.html">Tentang</a></li>
         </ul>
       </nav>
 
-      <!-- KOLOM KONTAK (dengan ikon) -->
+      <!-- KOLOM KONTAK (dengan ikon PNG) -->
       <nav class="ft-col" aria-label="Kontak">
         <h4 class="ft-col-title">Kontak</h4>
         <ul class="ft-list">
-          <li><span class="ft-icon" aria-hidden="true">💬</span><a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
-          <li><span class="ft-icon" aria-hidden="true">✉️</span><a href="mailto:hello@fixsarts.studio">hello@fixsarts.studio</a></li>
-          <li><span class="ft-icon" aria-hidden="true">📷</span><a href="https://instagram.com/fixsarts.studio" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li>
+            <span class="ft-icon" aria-hidden="true"><img src="assets/Icon/Whatsapp.png" alt=""></span>
+            <a href="https://api.whatsapp.com/send/?phone=6285655526686&amp;text=Hallo%21+%2Afixs.arts%2A%0ASaya+tertarik+dengan+jasa+Creative+Design&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </li>
+          <li>
+            <span class="ft-icon" aria-hidden="true"><img src="assets/Icon/Mail.png" alt=""></span>
+            <a href="mailto:fixs.arts@gmail.com">fixs.arts@gmail.com</a>
+          </li>
+          <li>
+            <span class="ft-icon" aria-hidden="true"><img src="assets/Icon/Instagram.png" alt=""></span>
+            <a href="https://www.instagram.com/fixs.arts/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          </li>
         </ul>
       </nav>
 
-      <!-- KOLOM TEKS BIASA (tanpa link) -->
-      <div class="ft-col">
+      <!-- KOLOM LOKASI -->
+      <nav class="ft-col" aria-label="Lokasi">
         <h4 class="ft-col-title">Lokasi</h4>
         <ul class="ft-list">
-          <li>Jakarta, Indonesia</li>
+          <li><a href="https://maps.app.goo.gl/n2NWofqy2PqZjbtX8" target="_blank" rel="noopener noreferrer">Banjarmasin, Indonesia</a></li>
         </ul>
-      </div>
+      </nav>
 
     </div>
   </div>
@@ -78,8 +93,7 @@
   <!-- BAR BAWAH -->
   <div class="ft-wrap">
     <div class="ft-bottom">
-      <span>© 2026 Fixs.Arts Studio. Seluruh hak cipta dilindungi.</span>
-      <span>Dibuat dengan HTML, CSS &amp; JavaScript murni.</span>
+      <span class="ft-copy">© 2026 Fixs.Arts Studio. Seluruh hak cipta dilindungi.</span>
     </div>
   </div>
 
